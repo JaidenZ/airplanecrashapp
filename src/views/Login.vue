@@ -2,7 +2,7 @@
     <div class="loginContainer">
         <div class="loginBox">
             <h1>AirplaneCrash</h1>
-            <el-form ref="User" :model="User" :rules="rules" :label-position="right" label-width="60px">
+            <el-form ref="User" :model="User" :rules="rules" label-width="60px">
                 <el-form-item label="昵称" prop="nickname">
                     <el-input type="text" v-model="User.nickname"></el-input>
                 </el-form-item>
@@ -78,15 +78,13 @@ export default {
                         text:'Loading',
                         spinner:'el-icon-loading'
                     });
-setTimeout(() => {
-          loading.close();
-        }, 2000);
+                    setTimeout(() => {
+                        loading.close();
+                    }, 2000);
                     v.$message({
                         type:'success',
                         message:'login success'
                     });
-
-
                 }else{
                     console.log('login error');
                     return false;

@@ -21,7 +21,7 @@
 <script>
 export default {
   
-  oncreate(){
+  created(){
     this.initWebSocket();
   },
   methods:{
@@ -29,13 +29,19 @@ export default {
     initWebSocket(){
       let app = this;
       if("WebSocket" in window){
-        app.ws = new WebSocket('ws://');
+        app.ws = new WebSocket('ws://172.16.161.150:9096');
         app.global.setWs(app.ws);
         app.ws.onopen = function(){
-          console.log("websocket与服务器连接成功");
+          app.$message({
+            type:'success',
+            message:'与服务器已连接'
+            });
         };
         app.ws.onclose = function(){
-          console.log("websocket与服务器连接已关闭");
+          app.$message({
+            type:'error',
+            message:'与服务器连接已断开'
+            });
           //尝试重新连接
           setTimeout(()=>{
             app.initWebSocket();
