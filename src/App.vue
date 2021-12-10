@@ -20,40 +20,29 @@
 
 <script>
 export default {
-  
   created(){
-    this.initWebSocket();
+    this.connect();
   },
   methods:{
-
-    initWebSocket(){
-      let app = this;
-      if("WebSocket" in window){
-        app.ws = new WebSocket('ws://172.16.161.150:9096');
-        app.global.setWs(app.ws);
-        app.ws.onopen = function(){
-          app.$message({
-            type:'success',
-            message:'与服务器已连接'
-            });
-        };
-        app.ws.onclose = function(){
-          app.$message({
-            type:'error',
-            message:'与服务器连接已断开'
-            });
-          //尝试重新连接
-          setTimeout(()=>{
-            app.initWebSocket();
-          },5000);
-        }
-
-      }else{
-        console.log("浏览器不支持WebSocket!");
-        
-      }
+    connect(){
+      this.webSocket.initWebSocket('172.16.161.150',9096,this.onOpen,this.onClose);
+    },
+    onOpen(){
+      this.$message({
+        type:'success',
+        message:'与服务器已连接'
+        });
+    },
+    onClose(){
+      this.$message({
+        type:'error',
+        message:'与服务器连接已断开'
+      });
+      //尝试重新连接
+      setTimeout(()=>{
+        this.webSocket.reTryConnect();
+      },5000);
     }
   }
-
 }
 </script>

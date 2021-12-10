@@ -65,13 +65,30 @@ export default {
             }
         }
     },
+    created(){
+        this.webSocket.addMessageCallback(this.onRreceived);
+
+    },
     methods:{
+        onRreceived:function(msg){
+            console.log(msg);
+            this.cookie.setCookie('UserInfo',JSON.stringify(msg));
+        },
         reset:function(User){
             this.$refs[User].resetFields();
         },
         login:function(User){
             this.$refs[User].validate((valid)=>{
                 if(valid){
+                    
+                    var data = {};
+                    data.Code = 1;
+                    data.Message = {};
+
+                    data.Message.NickName = this.User.nickname;
+                    this.webSocket.sendMessage(data);
+                    
+                    return;
                     let v = this;
                     const loading = v.$loading({
                         lock:true,
