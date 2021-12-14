@@ -2,14 +2,31 @@
    <el-skeleton :rows="6" animated />
 </template>
 
+
+<style scoped>
+
+
+</style>
+
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import App from "../App.vue";
 
 export default {
+  components: { App },
   name: 'Home',
-  components: {
-    HelloWorld
+  data(){
+    return{
+
+    };
+  },
+  created() {
+    this.webSocket.addMessageCallback(this.onReceived);
+  },
+  methods:{
+    onReceived:function(msg){
+
+    }
   }
+
 }
 </script>

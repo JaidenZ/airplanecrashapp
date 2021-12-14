@@ -59,11 +59,11 @@ export default {
     };
   },
   created() {
-    this.webSocket.addMessageCallback(this.onRreceived);
+    this.webSocket.addMessageCallback(this.onReceived);
   },
   methods: {
-    onRreceived: function (msg) {
-      console.log(msg);
+    onReceived: function (msg) {
+      
       if (msg === undefined || msg === null) return;
       if (msg.Code == 1) {
         //登录处理
@@ -79,6 +79,7 @@ export default {
         });
         setTimeout(() => {
           loadingInstance.close();
+          this.$router.push({name:'Home'})
         }, 2000);
       }
     },
