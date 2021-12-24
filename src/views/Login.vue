@@ -20,22 +20,25 @@
 </template>
 
 <style scoped>
-html,
-body {
-  margin: 0;
-  padding: 0;
+
+.loginContainer {
+  margin:0px;
+  padding:0px;
+  width: 100%;
+  padding-top: 50%;
   position: relative;
 }
 
-.loginContainer {
-  width: 100%;
-  height: 100%;
-}
-
-.loginBox {
+.loginContainer .loginBox {
   width: 380px;
-  margin-top: 120px;
-  margin-left: 120px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
 }
 </style>
 
