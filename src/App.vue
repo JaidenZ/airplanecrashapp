@@ -1,48 +1,59 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="less">
-
+html,
+body,
+#app,
+.el-container {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
 
 #app {
-  font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c502f;
-  
 }
-
 </style>
 
 <script>
 export default {
-  created(){
+  created() {
     this.connect();
   },
-  methods:{
-    connect(){
-      this.webSocket.initWebSocket('172.16.161.150',9096,this.onOpen,this.onClose);
+  methods: {
+    connect() {
+      this.webSocket.initWebSocket(
+        "172.16.161.150",
+        9096,
+        this.onOpen,
+        this.onClose
+      );
     },
-    onOpen(){
+    onOpen() {
       this.$message({
-        type:'success',
-        message:'与服务器已连接'
-        });
+        type: "success",
+        message: "与服务器已连接",
+      });
     },
-    onClose(){
+    onClose() {
       this.$message({
-        type:'error',
-        message:'与服务器连接已断开'
+        type: "error",
+        message: "与服务器连接已断开",
       });
       //尝试重新连接
-      setTimeout(()=>{
+      setTimeout(() => {
         this.webSocket.reTryConnect();
-      },5000);
-    }
-  }
-}
+      }, 5000);
+    },
+  },
+};
 </script>

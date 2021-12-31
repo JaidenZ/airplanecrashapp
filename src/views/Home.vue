@@ -1,50 +1,49 @@
 <template>
-<div>
-<el-row :gutter="20">
-
-<el-col>1</el-col>
-<el-col>2</el-col>
-<el-col>3</el-col>
-</el-row>
-
-  <el-skeleton :rows="6" :loading="loading" animated />
-
-</div>
-
+  <el-container>
+    <el-header>
+      <header></header>
+    </el-header>
+    <el-main> </el-main>
+    <el-footer> </el-footer>
+  </el-container>
 </template>
 
 <style scoped>
- .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-
+.el-header {
+  background-color: rgb(96, 148, 54);
+  color: white;
+}
+.el-main {
+  background-color: #9abce7;
+  color: #333;
+  line-height: 60px;
+}
+.el-footer {
+  line-height: 16px;
+}
 </style>
 
 <script>
-import App from "../App.vue";
+import header from "../components/Header.vue";
 
 export default {
-  components: { App },
-  name: 'Home',
-  data(){
-    return{
-      loading:true
+  components: { header },
+  name: "Home",
+  data() {
+    return {
+      loading: true,
+      message:"2132"
     };
   },
   created() {
     this.webSocket.addMessageCallback(this.onReceived);
   },
-  methods:{
-    onReceived:function(msg){
+  methods: {
+    onReceived: function (msg) {
       if (msg === undefined || msg === null) return;
-      if(msg.Code == 2){
-
+      if (msg.Code == 2) {
       }
-    }
-  }
-
-}
+    },
+  },
+};
 </script>
