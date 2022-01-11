@@ -32,19 +32,21 @@ export default {
   methods: {
     connect() {
       this.webSocket.initWebSocket(
-        "172.16.161.150",
+        "172.16.160.99",
         9096,
         this.onOpen,
         this.onClose
       );
     },
     onOpen() {
+      this.$store.commit("GLOBAL_SERVERSTATE",true);
       this.$message({
         type: "success",
         message: "与服务器已连接",
       });
     },
     onClose() {
+      this.$store.commit("GLOBAL_SERVERSTATE",false);
       this.$message({
         type: "error",
         message: "与服务器连接已断开",

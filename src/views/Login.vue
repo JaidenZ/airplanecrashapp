@@ -63,6 +63,17 @@ export default {
   },
   created() {
     this.webSocket.addMessageCallback(this.onReceived);
+    //检测是否登录成功
+    if(this.$store.getters.serverConnect && this.$store.getters.isLogin){
+      let loadingInstance = this.$loading({
+          fullscreen: true,
+          background: "rgba(0, 0, 0, 0.7)",
+        });
+        setTimeout(() => {
+          loadingInstance.close();
+          this.$router.replace({name:'Home'})
+        }, 2000);
+    }
   },
   methods: {
     onReceived: function (msg) {
@@ -73,7 +84,8 @@ export default {
         var userinfo = JSON.parse(msg.Message);
         console.log("登录成功");
         console.log(userinfo);
-        this.cookie.setCookie("UserInfo", msg.Message);
+        this.$store.commit("USER_SET",userinfo);
+
         //登录成功跳转页面
 
         let loadingInstance = this.$loading({

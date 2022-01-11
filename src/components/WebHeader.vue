@@ -1,9 +1,11 @@
 <template>
-  <div id="header">
+  <div id="web_header">
     <div class="content-box">
-      <h1 class="title">123232</h1>
+      <h1 class="title">{{msg}}</h1>
       <div class="menus">
-        <span @click="goBack">返回</span>
+        <span v-if="this.$store.getters.isLogin">{{this.$store.getters.currentUser.NickName}}</span>
+        <span v-if="this.$store.getters.isLogin">积分:{{this.$store.getters.currentUser.BattleSocre}}</span>
+        <span v-if="this.$store.getters.isLogin" @click="goBack">退出</span>
       </div>
     </div>
   </div>
@@ -11,7 +13,7 @@
 
 <script>
 export default {
-  name: "header",
+  name: "WebHeader",
   props: {
     msg: String,
   },
@@ -24,9 +26,9 @@ export default {
 </script>
 
 <style lang="less" scoped="scoped">
-#header {
+#web_header {
   width: 100%;
-  height: 50px;
+  height: 60px;
   background-color: rgb(96, 148, 54);
   overflow: hidden;
   min-width: 1000px;
@@ -40,17 +42,17 @@ export default {
 
   .title {
     color: white;
-    font-size: 20px;
-    line-height: 50px;
+    font-size: 18px;
+    line-height: 60px;
     font-weight: bold;
     float: left;
   }
   .menus {
     float: right;
     span {
-      line-height: 50px;
+      line-height: 60px;
       color: white;
-      font-size: 13px;
+      font-size: 15px;
       cursor: pointer;
       margin-left: 10px;
     }
