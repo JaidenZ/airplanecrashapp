@@ -1,10 +1,19 @@
 <template>
   <div id="web_header">
     <div class="content-box">
-      <h1 class="title">{{msg}}</h1>
+      <div class="tips">
+        <span>{{ msg }}</span>
+      </div>
+
       <div class="menus">
-        <span v-if="this.$store.getters.isLogin">{{this.$store.getters.currentUser.NickName}}</span>
-        <span v-if="this.$store.getters.isLogin">积分:{{this.$store.getters.currentUser.BattleSocre}}</span>
+        <span v-if="this.$store.getters.isLogin">
+          <i class="el-icon-user"></i>
+          {{
+          this.$store.getters.currentUser.NickName
+        }}</span>
+        <span v-if="this.$store.getters.isLogin"
+          >积分:{{ this.$store.getters.currentUser.BattleSocre }}</span
+        >
         <span v-if="this.$store.getters.isLogin" @click="goBack">退出</span>
       </div>
     </div>
@@ -20,7 +29,7 @@ export default {
   methods: {
     goBack() {
       this.$router.push({ name: "Login" });
-    },
+    }
   },
 };
 </script>
@@ -29,7 +38,6 @@ export default {
 #web_header {
   width: 100%;
   height: 60px;
-  background-color: rgb(96, 148, 54);
   overflow: hidden;
   min-width: 1000px;
 
@@ -37,15 +45,16 @@ export default {
     max-width: 1200px;
     margin: auto;
     min-width: 800px;
-    background-color: rgb(96, 148, 54);
+    height: 100%;
   }
-
-  .title {
-    color: white;
-    font-size: 18px;
-    line-height: 60px;
-    font-weight: bold;
+  .tips {
     float: left;
+    span {
+      line-height: 60px;
+      color: white;
+      font-size: 18px;
+      margin-left: 0px;
+    }
   }
   .menus {
     float: right;

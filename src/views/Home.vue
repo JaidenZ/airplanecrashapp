@@ -1,10 +1,19 @@
 <template>
   <el-container>
     <el-header>
-     <webheader :msg="message" style="position: absolute;top: 0;z-index: 1000;background-color: transparent"></webheader>
+      <webheader
+        :msg="message"
+        style="
+          position: absolute;
+          top: 0;
+          z-index: 1000;
+          background-color: transparent;
+        "
+      ></webheader>
     </el-header>
-    <el-main> 
+    <el-main>
       <el-button @click="changeDuration">test</el-button>
+      <el-empty description="暂未对局"></el-empty>
     </el-main>
     <el-footer> </el-footer>
   </el-container>
@@ -15,6 +24,7 @@
   line-height: 60px;
   background-color: #348bda;
   color: white;
+  padding: 0;
 }
 .el-main {
   background-color: #9abce7;
@@ -35,26 +45,25 @@ export default {
   data() {
     return {
       loading: true,
-      message:"welcome to airplanecrashapp"
+      message: "welcome to airplanecrashapp",
     };
   },
   created() {
     this.webSocket.addMessageCallback(this.onReceived);
     //检测是否登录成功
-    if(!this.$store.getters.serverConnect && !this.$store.getters.isLogin){
+    if (!this.$store.getters.serverConnect && !this.$store.getters.isLogin) {
       let loadingInstance = this.$loading({
-          fullscreen: true,
-          background: "rgba(0, 0, 0, 0.7)",
-        });
-        setTimeout(() => {
-          loadingInstance.close();
-          this.$router.replace({name:'Login'})
-        }, 2000);
+        fullscreen: true,
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      setTimeout(() => {
+        loadingInstance.close();
+        this.$router.replace({ name: "Login" });
+      }, 2000);
     }
-
   },
   methods: {
-    changeDuration(){
+    changeDuration() {
       this.message = "正在匹配";
     },
     onReceived: function (msg) {
