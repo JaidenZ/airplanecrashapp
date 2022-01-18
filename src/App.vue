@@ -32,7 +32,7 @@ export default {
   methods: {
     connect() {
       this.webSocket.initWebSocket(
-        "172.16.160.99",
+        "172.16.160.78",
         9096,
         this.onOpen,
         this.onClose

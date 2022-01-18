@@ -12,8 +12,32 @@
       ></webheader>
     </el-header>
     <el-main>
-      <el-button @click="changeDuration">test</el-button>
-      <el-empty description="暂未对局"></el-empty>
+      <div
+        v-if="this.gameStatus == 0"
+        v-loading="gameloading"
+        :element-loading-text="gameloadingtext"
+        class="gamecaptrue"
+      >
+        <el-button v-if="this.gameStatus == 0" @click="startGame"
+          >开始匹配</el-button
+        >
+      </div>
+      <div
+        v-if="this.gameStatus == 1"
+        v-loading="gameloading"
+        :element-loading-text="gameloadingtext"
+        class="gamecaptrue"
+      >
+        预备飞机<el-button @click="preparedReady">准备完毕</el-button>
+      </div>
+      <div
+        v-if="this.gameStatus == 2"
+        v-loading="gameloading"
+        :element-loading-text="gameloadingtext"
+        class="gamecaptrue"
+      >
+        对战中<el-button @click="gamePause">暂停</el-button>
+      </div>
     </el-main>
     <el-footer> </el-footer>
   </el-container>
@@ -27,12 +51,23 @@
   padding: 0;
 }
 .el-main {
-  background-color: #9abce7;
+  /*background-color: #9abce7;*/
   color: #333;
   line-height: 60px;
 }
 .el-footer {
   line-height: 16px;
+}
+
+.gamecaptrue {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gamenormal {
+  background-color: white;
 }
 </style>
 
@@ -46,6 +81,9 @@ export default {
     return {
       loading: true,
       message: "welcome to airplanecrashapp",
+      gameStatus: 0,
+      gameloading: false,
+      gameloadingtext: "",
     };
   },
   created() {
@@ -63,8 +101,28 @@ export default {
     }
   },
   methods: {
-    changeDuration() {
-      this.message = "正在匹配";
+    startGame() {
+      this.gameloading = true;
+      this.gameloadingtext = "正在匹配对手";
+      setTimeout(() => {
+        this.gameStatus = 1;
+        this.gameloading = false;
+      }, 2000);
+    },
+    preparedReady() {
+      this.gameloading = true;
+      this.gameloadingtext = "正在等待对手预备飞机";
+      setTimeout(() => {
+        this.gameStatus = 2;
+        this.gameloading = false;
+      }, 4000);
+    },
+    gamePause() {
+      this.gameloading = true;
+      this.gameloadingtext = "暂停了对局";
+      setTimeout(() => {
+        this.gameloading = false;
+      }, 3000);
     },
     onReceived: function (msg) {
       if (msg === undefined || msg === null) return;
