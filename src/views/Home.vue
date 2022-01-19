@@ -18,6 +18,9 @@
         :element-loading-text="gameloadingtext"
         class="gamecaptrue"
       >
+       <rank :RankUser="rankUser" style="width:50%; float:left"/>
+       <userview style="width:50% float:right"/>
+       <div style="clear:bouth"></div>
         <el-button v-if="this.gameStatus == 0" @click="startGame"
           >开始匹配</el-button
         >
@@ -57,6 +60,7 @@
 }
 .el-footer {
   line-height: 16px;
+  background-color: #d8d8d8;
 }
 
 .gamecaptrue {
@@ -73,9 +77,11 @@
 
 <script>
 import webheader from "../components/WebHeader.vue";
+import rank from "../components/Rank.vue"
+import userview from "../components/UserView.vue"
 
 export default {
-  components: { webheader },
+  components: { webheader,rank,userview },
   name: "Home",
   data() {
     return {
@@ -84,21 +90,26 @@ export default {
       gameStatus: 0,
       gameloading: false,
       gameloadingtext: "",
+      rankUser: new Array()
     };
   },
   created() {
     this.webSocket.addMessageCallback(this.onReceived);
     //检测是否登录成功
     if (!this.$store.getters.serverConnect && !this.$store.getters.isLogin) {
-      let loadingInstance = this.$loading({
-        fullscreen: true,
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      setTimeout(() => {
-        loadingInstance.close();
-        this.$router.replace({ name: "Login" });
-      }, 2000);
+      //let loadingInstance = this.$loading({
+      //  fullscreen: true,
+      //  background: "rgba(0, 0, 0, 0.7)",
+      //});
+      //setTimeout(() => {
+      //  loadingInstance.close();
+      //  this.$router.replace({ name: "Login" });
+      //}, 2000);
     }
+
+
+    this.rankUser.push({nickname:"Jaiden",score:89});
+    this.rankUser.push({nickname:"Izsan",score:88});
   },
   methods: {
     startGame() {
