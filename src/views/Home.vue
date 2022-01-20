@@ -23,27 +23,26 @@
           <el-col :span="12"><userview /></el-col>
         </el-row>
         <el-row>
-          <el-col :span="6" >
+          <el-col :span="6">
             <el-button v-if="this.gameStatus == 0" @click="startGame"
-            >开始匹配</el-button
-          >
+              >开始匹配</el-button
+            >
           </el-col>
-          <el-col :span="6" >
+          <el-col :span="6">
             <el-button v-if="this.gameStatus == 0" @click="startGame"
-            >自由练习</el-button
-          >
+              >自由练习</el-button
+            >
           </el-col>
-          <el-col :span="6" >
+          <el-col :span="6">
             <el-button v-if="this.gameStatus == 0" @click="startGame"
-            >个人设置</el-button
-          >
+              >个人设置</el-button
+            >
           </el-col>
-          <el-col :span="6" >
+          <el-col :span="6">
             <el-button v-if="this.gameStatus == 0" @click="startGame"
-            >关于我们</el-button
-          >
+              >关于我们</el-button
+            >
           </el-col>
-          
         </el-row>
       </div>
       <div
@@ -52,7 +51,8 @@
         :element-loading-text="gameloadingtext"
         class="gamecaptrue"
       >
-        预备飞机<el-button @click="preparedReady">准备完毕</el-button>
+        <airplanesetting />
+        <el-button @click="preparedReady">准备完毕</el-button>
       </div>
       <div
         v-if="this.gameStatus == 2"
@@ -108,9 +108,10 @@
 import webheader from "../components/WebHeader.vue";
 import rank from "../components/Rank.vue";
 import userview from "../components/UserView.vue";
+import airplanesetting from "../components/AirplaneSetting.vue";
 
 export default {
-  components: { webheader, rank, userview },
+  components: { webheader, rank, userview, airplanesetting },
   name: "Home",
   data() {
     return {
