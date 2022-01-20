@@ -18,12 +18,33 @@
         :element-loading-text="gameloadingtext"
         class="gamecaptrue"
       >
-       <rank :RankUser="rankUser" style="width:50%; float:left"/>
-       <userview style="width:50% float:right"/>
-       <div style="clear:bouth"></div>
-        <el-button v-if="this.gameStatus == 0" @click="startGame"
-          >开始匹配</el-button
-        >
+        <el-row :gutter="20">
+          <el-col :span="12"><rank :RankUser="rankUser" /></el-col>
+          <el-col :span="12"><userview /></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6" >
+            <el-button v-if="this.gameStatus == 0" @click="startGame"
+            >开始匹配</el-button
+          >
+          </el-col>
+          <el-col :span="6" >
+            <el-button v-if="this.gameStatus == 0" @click="startGame"
+            >自由练习</el-button
+          >
+          </el-col>
+          <el-col :span="6" >
+            <el-button v-if="this.gameStatus == 0" @click="startGame"
+            >个人设置</el-button
+          >
+          </el-col>
+          <el-col :span="6" >
+            <el-button v-if="this.gameStatus == 0" @click="startGame"
+            >关于我们</el-button
+          >
+          </el-col>
+          
+        </el-row>
       </div>
       <div
         v-if="this.gameStatus == 1"
@@ -73,15 +94,23 @@
 .gamenormal {
   background-color: white;
 }
+
+.controlList {
+  width: 50%;
+  height: 10px;
+  border: 1px solid black;
+  margin: 0px auto;
+  padding: 0 auto;
+}
 </style>
 
 <script>
 import webheader from "../components/WebHeader.vue";
-import rank from "../components/Rank.vue"
-import userview from "../components/UserView.vue"
+import rank from "../components/Rank.vue";
+import userview from "../components/UserView.vue";
 
 export default {
-  components: { webheader,rank,userview },
+  components: { webheader, rank, userview },
   name: "Home",
   data() {
     return {
@@ -90,7 +119,7 @@ export default {
       gameStatus: 0,
       gameloading: false,
       gameloadingtext: "",
-      rankUser: new Array()
+      rankUser: new Array(),
     };
   },
   created() {
@@ -107,9 +136,8 @@ export default {
       //}, 2000);
     }
 
-
-    this.rankUser.push({nickname:"Jaiden",score:89});
-    this.rankUser.push({nickname:"Izsan",score:88});
+    this.rankUser.push({ rank: 1, nickname: "Jaiden", score: 89 });
+    this.rankUser.push({ rank: 2, nickname: "Izsan", score: 88 });
   },
   methods: {
     startGame() {
