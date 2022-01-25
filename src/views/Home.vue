@@ -51,7 +51,7 @@
         :element-loading-text="gameloadingtext"
         class="gamecaptrue"
       >
-        <airplanesetting />
+        <airplanesetting :Items="settingItems" />
         <el-button @click="preparedReady">准备完毕</el-button>
       </div>
       <div
@@ -121,6 +121,7 @@ export default {
       gameloading: false,
       gameloadingtext: "",
       rankUser: new Array(),
+      settingItems: new Array(),
     };
   },
   created() {
@@ -139,11 +140,30 @@ export default {
 
     this.rankUser.push({ rank: 1, nickname: "Jaiden", score: 89 });
     this.rankUser.push({ rank: 2, nickname: "Izsan", score: 88 });
+
+
   },
   methods: {
     startGame() {
       this.gameloading = true;
       this.gameloadingtext = "正在匹配对手";
+
+    for (var y = 0;y<11;y++) {
+      var row = {};
+      row.key = y;
+      row.data = [];
+      for (var x = 0;x<23;x++) {
+        var column = {};
+        column.row = y;
+        column.key = x;
+        column.data = {};
+        row.data.push(column);
+      }
+      this.settingItems.push(row);
+    }
+
+    console.log(this.settingItems);
+
       setTimeout(() => {
         this.gameStatus = 1;
         this.gameloading = false;

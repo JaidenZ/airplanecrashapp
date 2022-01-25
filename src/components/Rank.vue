@@ -3,7 +3,6 @@
       <span>排行榜</span>
       <el-table
       :data="RankUser"
-      stripe=true
       style="width: 100%">
             <el-table-column
         prop="rank"
