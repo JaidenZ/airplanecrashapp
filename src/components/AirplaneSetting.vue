@@ -6,11 +6,7 @@
       </div>
     </div>
     <div class="settingAside">
-      <div
-        class="settingAsideitem"
-        v-for="item in settingAsideList"
-        :key="item"
-      >
+      <div class="settingAsideitem" v-for="item in settingAsideList" :key="item">
         {{ item }}
       </div>
     </div>
@@ -53,7 +49,7 @@
   margin: 1px;
   text-align: center;
   line-height: 49px;
-   font-size: 18px;
+  font-size: 18px;
 }
 .settingAsideitem {
   width: 50px;
@@ -93,29 +89,8 @@ export default {
   data() {
     return {
       settingTopList: [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W"
+        "A","B","C","D","E","F","G","H","I","J","K","L",
+        "M","N","O","P","Q","R","S","T","U","V","W",
       ],
       settingAsideList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
     };
