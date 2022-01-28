@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="airplaneSetting">
     <div class="settingTop">
       <div class="settingTopitem" v-for="item in settingTopList" :key="item">
@@ -17,8 +18,23 @@
       </el-row>
     </div>
   </div>
+<div class="airplaneSettingControl">
+
+<el-button>设置机头</el-button>
+<el-button @click="preparedReady">准备完毕</el-button>
+</div>
+</div>
+
 </template>
 <style scoped>
+.airplaneSettingControl{
+  width:200px;
+  height: 600px;
+  margin-left: 15px;
+  float: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
+
 .airplaneSetting {
   width: 1200px;
   height: 600px;
@@ -68,14 +84,18 @@
 }
 
 .bodyItem {
-  border: 1px solid #d8d8d8;
   height: 48px;
   width: 48px;
   margin: 1px;
-  background-color: #343434;
+  background-color: #d8d8d8;
 }
 
+.bodyItem:hover{
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+}
 .airplane {
+  
   background-color: #787878;
 }
 </style>

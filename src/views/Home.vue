@@ -52,7 +52,7 @@
         class="gamecaptrue"
       >
         <airplanesetting :Items="settingItems" />
-        <el-button @click="preparedReady">准备完毕</el-button>
+        
       </div>
       <div
         v-if="this.gameStatus == 2"
@@ -161,8 +161,6 @@ export default {
       }
       this.settingItems.push(row);
     }
-
-    console.log(this.settingItems);
 
       setTimeout(() => {
         this.gameStatus = 1;
