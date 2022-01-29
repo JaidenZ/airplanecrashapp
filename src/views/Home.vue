@@ -156,7 +156,7 @@ export default {
         var column = {};
         column.row = y;
         column.key = x;
-        column.data = { type:0};
+        column.data = { type:0,selected:false,preview:false};
         row.data.push(column);
       }
       this.settingItems.push(row);

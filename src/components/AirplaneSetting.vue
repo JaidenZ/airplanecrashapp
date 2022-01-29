@@ -19,9 +19,18 @@
         <el-row v-for="row in Items" :key="row.key">
           <el-col
             class="bodyItem"
+            :class="
+              column.data.selected
+                ? 'airplane'
+                : column.data.preview
+                ? 'airplanepreview'
+                : 'bodyItem'
+            "
             v-for="column in row.data"
             :key="column.key"
             @click.native="itemSelect(column)"
+            @mouseenter.native="itempreview(column)"
+            @mouseover="itempreviewclear"
           >
           </el-col>
         </el-row>
@@ -105,6 +114,10 @@
 .airplane {
   background-color: #787878;
 }
+
+.airplanepreview {
+  background-color: #d38939;
+}
 </style>
 
 <script>
@@ -141,6 +154,7 @@ export default {
         "W",
       ],
       settingAsideList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      enableSetair: false,
     };
   },
   methods: {
@@ -150,9 +164,75 @@ export default {
     preparedReady() {
       console.log(123233);
     },
-    setAirplane(){
-
+    setAirplane() {
+      this.enableSetair = true;
+      this.$message({
+        type: "info",
+        message: "请在格中选择飞机头",
+      });
     },
+    itempreview(item) {
+      if (!this.enableSetair) {
+        return;
+      }
+      //计算需要预览的格子
+      var previewItems = [];
+      //机身
+      for (var i = 0; i < 5; i++) {
+        var x = item.key;
+        var y = item.row;
+        y += i;
+
+        if (x > 0 && x < this.settingTopList.length) {
+          previewItems.push({ x: x, y: y });
+        }
+      }
+      //机翼
+      var airfoily = item.row + 1;
+      var airfoilx1 = item.key + 1;
+      var airfoilx2 = item.key + 2;
+      var airfoilx3 = item.key - 1;
+      var airfoilx4 = item.key - 2;
+      if (0 < airfoily < this.settingAsideList.length) {
+        if (0 < airfoilx1 < this.settingTopList.length) {
+          previewItems.push({ x: airfoilx1, y: airfoily });
+        }
+        if (0 < airfoilx2 < this.settingTopList.length) {
+          previewItems.push({ x: airfoilx2, y: airfoily });
+        }
+        if (0 < airfoilx3 < this.settingTopList.length) {
+          previewItems.push({ x: airfoilx3, y: airfoily });
+        }
+        if (0 < airfoilx4 < this.settingTopList.length) {
+          previewItems.push({ x: airfoilx4, y: airfoily });
+        }
+      }
+      //机尾
+      var airtaily = item.row + 3;
+      var airtailx1 = item.key + 1;
+      var airtailx2 = item.key - 1;
+      if (0 < airtaily < this.settingAsideList.length) {
+        if (0 < airtailx1 < this.settingTopList.length) {
+          previewItems.push({ x: airtailx1, y: airfoily });
+        }
+        if (0 < airtailx2 < this.settingTopList.length) {
+          previewItems.push({ x: airtailx2, y: airfoily });
+        }
+      }
+      for (var i = 0; i < this.Items.length; i++) {
+        var row = this.Items[i];
+        for (var t = 0; t < row.data.length; t) {
+          var item = row.data[t];
+          for (var p = 0; p < previewItems.length; p++) {
+            var pitem = previewItems[p];
+            if (item.key == pitem.x && item.row == pitem.y) {
+              item.data.preview = true;
+            }
+          }
+        }
+      }
+    },
+    itempreviewclear() {},
     itemSelect(data) {
       var itemText = "未选中";
       if (data.data.type == 0) {
@@ -166,7 +246,35 @@ export default {
       } else if (data.data.type == 3) {
         itemText = "机尾";
       }
-      console.log("选中第" + (data.row+1) + "行,第" + (data.key+1) + "列数据.[" + itemText + "]");
+      console.log(
+        "选中第" +
+          (data.row + 1) +
+          "行,第" +
+          (data.key + 1) +
+          "列数据.[" +
+          itemText +
+          "]"
+      );
+
+      if (data.data.type == 0 && this.enableSetair) {
+        //设置当前为机头,判断高度与宽度
+        if (data.row > this.settingAsideList.length - 5) {
+          this.$message({
+            type: "error",
+            message: "当前位置高度不够,不能设置飞机",
+          });
+          return;
+        }
+        if (data.key > this.settingTopList.length - 3 || data.key < 3) {
+          this.$message({
+            type: "error",
+            message: "当前位置宽度不够，不能设置飞机",
+          });
+          return;
+        }
+
+        //可以设置飞机,判断是否与其他飞机重复
+      }
     },
   },
 };
