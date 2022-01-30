@@ -30,7 +30,7 @@
             :key="column.key"
             @click.native="itemSelect(column)"
             @mouseenter.native="itempreview(column)"
-            @mouseover="itempreviewclear"
+            @mouseover.native="itempreviewclear"
           >
           </el-col>
         </el-row>
@@ -107,8 +107,8 @@
 }
 
 .bodyItem:hover {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  /*background-color: #fff;*/
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);*/
 }
 
 .airplane {
@@ -175,6 +175,8 @@ export default {
       if (!this.enableSetair) {
         return;
       }
+      item.data.preview = true;
+return;
       //计算需要预览的格子
       var previewItems = [];
       //机身
@@ -219,6 +221,8 @@ export default {
           previewItems.push({ x: airtailx2, y: airfoily });
         }
       }
+
+      return;
       for (var i = 0; i < this.Items.length; i++) {
         var row = this.Items[i];
         for (var t = 0; t < row.data.length; t) {
@@ -232,7 +236,12 @@ export default {
         }
       }
     },
-    itempreviewclear() {},
+    itempreviewclear() {
+
+console.log(this.Items);
+
+
+    },
     itemSelect(data) {
       var itemText = "未选中";
       if (data.data.type == 0) {
